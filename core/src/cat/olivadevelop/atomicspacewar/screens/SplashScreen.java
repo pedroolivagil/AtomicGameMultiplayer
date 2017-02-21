@@ -1,13 +1,15 @@
 package cat.olivadevelop.atomicspacewar.screens;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Timer;
 
 import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
 import cat.olivadevelop.atomicspacewar.tools.CustomImage;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
-import cat.olivadevelop.atomicspacewar.tools.ProgressBar;
 import cat.olivadevelop.atomicspacewar.tools.Tools;
 
 /**
@@ -16,17 +18,29 @@ import cat.olivadevelop.atomicspacewar.tools.Tools;
 
 public class SplashScreen extends GenericScreen {
 
-    private ProgressBar progressBar;
     private CustomImage logo;
     private TextureAtlas appAtlas;
-    private boolean cargaTerminada;
-    private Skin skin;
 
     public SplashScreen(AtomicSpaceWarGame game) {
         super(game);
-        cargaTerminada = false;
+        game.getAssets().load("skin/L/uiskin.atlas", TextureAtlas.class);
+        game.getAssets().load("skin/L/uiskin.json", Skin.class, new SkinLoader.SkinParameter("skin/L/uiskin.atlas"));
+        game.getAssets().load("skin/XL/uiskin.atlas", TextureAtlas.class);
+        game.getAssets().load("skin/XL/uiskin.json", Skin.class, new SkinLoader.SkinParameter("skin/XL/uiskin.atlas"));
+        game.getAssets().load("skin/S/uiskin.atlas", TextureAtlas.class);
+        game.getAssets().load("skin/S/uiskin.json", Skin.class, new SkinLoader.SkinParameter("skin/S/uiskin.atlas"));
+        game.getAssets().load("textures/app.atlas", TextureAtlas.class);
+        game.getAssets().load("textures/enemy_ship.atlas", TextureAtlas.class);
+        game.getAssets().load("textures/ui.atlas", TextureAtlas.class);
+        game.getAssets().load("sounds/explosion_spaceship.mp3", Sound.class);
+        game.getAssets().load("sounds/level_up.mp3", Sound.class);
+        game.getAssets().load("sounds/power_up.mp3", Sound.class);
+        game.getAssets().load("sounds/shoot_laser.mp3", Sound.class);
+        game.getAssets().load("sounds/shoot_normal.mp3", Sound.class);
+        game.getAssets().load("sounds/shoot_plasma.mp3", Sound.class);
+        game.getAssets().load("enviroment/enviroment_edgy.mp3", Music.class);
+        game.getAssets().load("enviroment/enviroment_quiet.mp3", Music.class);
 
-        skin = new Skin(Gdx.files.internal("skin/L/uiskin.json"));
         appAtlas = new TextureAtlas("textures/app.atlas");
 
         logo = new CustomImage(appAtlas.findRegion("logo"));
@@ -39,36 +53,18 @@ public class SplashScreen extends GenericScreen {
     @Override
     public void show() {
         super.show();
-
         getStage().addActor(logo);
-        progressBar = new ProgressBar(this, true);
-        progressBar.setProgress(0f);
-        getStage().addActor(progressBar);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                getGame().setScreen(new LoadScreen(getGame()));
+            }
+        }, 2f);
     }
 
     @Override
     public void dispose() {
-        skin.dispose();
         appAtlas.dispose();
         super.dispose();
-    }
-
-    @Override
-    protected void actionsRender() {
-        super.actionsRender();
-        if (!cargaTerminada) {
-            if (getGame().getAssets().update()) {
-                loadMainMenu();
-            } else {
-                progressBar.setProgress(getGame().getAssets().getProgress());
-            }
-        }
-    }
-
-    private void loadMainMenu() {
-        cargaTerminada = true;
-        Gdx.app.log("CARGA", "TERMINADA" + getGame().getAssets().getAssetNames());
-        progressBar.setProgress(1);
-        getGame().finishLoad();
     }
 }

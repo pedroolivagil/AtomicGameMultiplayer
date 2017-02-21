@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
@@ -16,7 +17,6 @@ public class ProgressBar extends Group {
     private GenericScreen screen;
     private CustomImage bg_shadow;
     private CustomImage fg_bar;
-    private CustomLabel text;
     private float progress;
 
     /**
@@ -42,15 +42,11 @@ public class ProgressBar extends Group {
 
         fg_bar = new CustomImage(new NinePatchDrawable(new NinePatch(textureAtlas.findRegion("squareWhite"), 8, 8, 8, 8)));
         fg_bar.setWidth(0);
+        fg_bar.addAction(Actions.alpha(.3f));
         fg_bar.setHeight(getHeight());
-
-        text = new CustomLabel("", skin);
-        text.setTextSize(.5f);
-        text.setPosition(bg_shadow.getX() + bg_shadow.getWidth() + 15, getY() - (text.getHeight() / 2) + 5);
 
         addActor(bg_shadow);
         addActor(fg_bar);
-        addActor(text);
     }
 
     @Override
@@ -58,7 +54,6 @@ public class ProgressBar extends Group {
         super.act(delta);
         if (getProgress() >= 0) {
             fg_bar.setWidth(getProgress() * getWidth() / 100);
-            text.setText(getProgress() + "%");
         }
     }
 
