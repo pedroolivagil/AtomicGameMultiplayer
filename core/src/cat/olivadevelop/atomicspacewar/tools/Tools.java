@@ -13,6 +13,9 @@ public abstract class Tools {
     public static final float PIXELS_IN_METERS = 100f;
     public static final float METERS_IN_PIXELS = .01f;
 
+    public static final int WIDTH_BUTTON = 280;
+    public static final int HEIGHT_BUTTON = 10;
+
     public static final String MAIN_MENU_SCREEN = "main-menu";
     public static final String MULTIPLAYER_SCREEN = "multiplayer";
     public static final String SINGLEPLAYER_SCREEN = "singleplayer";

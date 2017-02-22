@@ -32,7 +32,7 @@ public class MainMenuScreen extends GenericScreen {
         iTitle.setRotation(30);
 
         btnExit = new CustomButton(Tools.getString("btnExit"), game);
-        btnExit.addListener(new Listener(){
+        btnExit.addListener(new Listener() {
             @Override
             public void action() {
                 game.exitGame();
@@ -40,8 +40,9 @@ public class MainMenuScreen extends GenericScreen {
         });
 
         groupButtons = new Group();
+        groupButtons.setPosition(Tools.getScreen_width() / 2 + 200, Tools.getScreen_height() / 4);
         groupButtons.addActor(btnExit);
-        groupButtons.debugAll();
+
     }
 
     @Override

@@ -1,10 +1,14 @@
 package cat.olivadevelop.atomicspacewar.tools;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Align;
 
 import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
+
+import static cat.olivadevelop.atomicspacewar.tools.Tools.HEIGHT_BUTTON;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.WIDTH_BUTTON;
 
 /**
  * Created by Oliva on 22/02/2017.
@@ -16,11 +20,18 @@ public class CustomButton extends Group {
     private CustomImage bg;
 
     public CustomButton(String text, AtomicSpaceWarGame game) {
-        label = new CustomLabel(text.toUpperCase(), game.getSkinL());
-        bg = new CustomImage(game.getUI().findRegion("glassPanel_corners"));
+        label = new CustomLabel(text, game.getSkinL());
+        bg = new CustomImage(new NinePatch(game.getUI().findRegion("glassPanel_projection"), 14, 14, 14, 14)); //glassPanel_corners
+        //bg.setScale(.7f);
+        label.setTextSize(1);
+        setScale(.7f);
 
-        addActor(bg);
+        setWidth(WIDTH_BUTTON * (1 + getScale()));
+        setHeight(HEIGHT_BUTTON);
         addActor(label);
+        addActor(bg);
+        center();
+        label.setY(getHeight() / 2f + label.getHeight() / 7f);
     }
 
     private float getScale() {
