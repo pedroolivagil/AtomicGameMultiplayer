@@ -57,11 +57,11 @@ public class ProgressBar extends Group {
         }
     }
 
-    public void setProgress(float progress) {
-        this.progress = progress;
-    }
-
     public int getProgress() {
         return (int) (progress * 100);
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
     }
 }

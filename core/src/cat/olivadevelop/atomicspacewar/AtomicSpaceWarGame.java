@@ -14,7 +14,7 @@ import cat.olivadevelop.atomicspacewar.screens.SplashScreen;
 import cat.olivadevelop.atomicspacewar.tools.ColorGame;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 
-import static cat.olivadevelop.atomicspacewar.tools.Tools.MAIN_MENU_SCREEN;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.SCREEN_MAIN_MENU;
 
 public class AtomicSpaceWarGame extends Game {
 
@@ -35,7 +35,7 @@ public class AtomicSpaceWarGame extends Game {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                goToScreen(MAIN_MENU_SCREEN);
+                goToScreen(SCREEN_MAIN_MENU);
             }
         }, .5f);
     }
@@ -58,7 +58,7 @@ public class AtomicSpaceWarGame extends Game {
         if (listScreens == null) {
             listScreens = new HashMap<String, GenericScreen>();
             mainMenu = new MainMenuScreen(this);
-            listScreens.put(MAIN_MENU_SCREEN, mainMenu);
+            listScreens.put(SCREEN_MAIN_MENU, mainMenu);
         }
     }
 
@@ -78,7 +78,7 @@ public class AtomicSpaceWarGame extends Game {
         return getAssets().get("skin/L/uiskin.json");
     }
 
-    public void exitGame(){
+    public void exitGame() {
         super.dispose();
         Gdx.app.exit();
     }

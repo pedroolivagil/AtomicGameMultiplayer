@@ -14,7 +14,7 @@ public class CustomLabel extends Label {
         setTextSize(.7f);
     }
 
-    public void setTextSize(float scaleXY){
+    public void setTextSize(float scaleXY) {
         this.setScale(scaleXY);
         this.setFontScale(scaleXY);
     }
