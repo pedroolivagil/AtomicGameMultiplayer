@@ -5,8 +5,8 @@ repeat: none
 background
   rotate: false
   xy: 2, 2
-  size: 1280, 720
-  orig: 1280, 720
+  size: 1275, 720
+  orig: 1275, 720
   offset: 0, 0
   index: -1
 black
@@ -25,7 +25,7 @@ cloudy4
   index: -1
 cloudy7
   rotate: false
-  xy: 1284, 316
+  xy: 1279, 316
   size: 284, 284
   orig: 284, 284
   offset: 0, 0
@@ -39,14 +39,14 @@ logo
   index: -1
 rings5
   rotate: false
-  xy: 1284, 2
+  xy: 1279, 2
   size: 448, 312
   orig: 448, 312
   offset: 0, 0
   index: -1
 rock1
   rotate: false
-  xy: 1570, 316
+  xy: 1565, 316
   size: 283, 283
   orig: 310, 283
   offset: 17, 0

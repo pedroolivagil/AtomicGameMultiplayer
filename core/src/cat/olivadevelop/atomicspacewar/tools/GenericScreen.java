@@ -34,6 +34,7 @@ public class GenericScreen extends OverlapListener implements Screen {
     @Override
     public void show() {
         stage = new Stage(new FitViewport(Tools.getScreen_width(), Tools.getScreen_height()));
+        Gdx.input.setInputProcessor(stage);
         if (useWorld) {
             world = new World(new Vector2(0, -10), true);
         }

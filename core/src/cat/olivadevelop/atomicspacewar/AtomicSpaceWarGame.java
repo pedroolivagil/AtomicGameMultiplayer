@@ -1,6 +1,7 @@
 package cat.olivadevelop.atomicspacewar;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -8,7 +9,6 @@ import com.badlogic.gdx.utils.Timer;
 
 import java.util.HashMap;
 
-import cat.olivadevelop.atomicspacewar.screens.LoadScreen;
 import cat.olivadevelop.atomicspacewar.screens.MainMenuScreen;
 import cat.olivadevelop.atomicspacewar.screens.SplashScreen;
 import cat.olivadevelop.atomicspacewar.tools.ColorGame;
@@ -22,7 +22,6 @@ public class AtomicSpaceWarGame extends Game {
 
     private HashMap<String, GenericScreen> listScreens;
     private GenericScreen mainMenu;
-    private GenericScreen loadScreen;
 
     @Override
     public void create() {
@@ -59,7 +58,6 @@ public class AtomicSpaceWarGame extends Game {
         if (listScreens == null) {
             listScreens = new HashMap<String, GenericScreen>();
             mainMenu = new MainMenuScreen(this);
-            loadScreen = new LoadScreen(this);
             listScreens.put(MAIN_MENU_SCREEN, mainMenu);
         }
     }
@@ -72,7 +70,16 @@ public class AtomicSpaceWarGame extends Game {
         return getAssets().get("textures/ui.atlas");
     }
 
+    public TextureAtlas getApp() {
+        return getAssets().get("textures/app.atlas");
+    }
+
     public Skin getSkinL() {
         return getAssets().get("skin/L/uiskin.json");
+    }
+
+    public void exitGame(){
+        super.dispose();
+        Gdx.app.exit();
     }
 }
