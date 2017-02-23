@@ -21,6 +21,7 @@ public abstract class Tools {
     public static final String SCREEN_MAIN_MENU = "main-menu";
     public static final String SCREEN_MULTIPLAYER = "multiplayer";
     public static final String SCREEN_SINGLEPLAYER = "singleplayer";
+    public static final String SCREEN_CONFIG = "config-screen";
     public static final String SCREEN_GAMEOVER_MULTIPLAYER = "game-over-multiplayer";
     public static final String SCREEN_GAMEOVER_SINGLEPLAYER = "game-over-singleplayer";
 

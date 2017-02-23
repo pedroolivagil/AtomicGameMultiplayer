@@ -10,18 +10,19 @@ import com.badlogic.gdx.utils.Timer;
 import java.util.HashMap;
 
 import cat.olivadevelop.atomicspacewar.screens.MainMenuScreen;
+import cat.olivadevelop.atomicspacewar.screens.MultiplayerScreen;
 import cat.olivadevelop.atomicspacewar.screens.SplashScreen;
 import cat.olivadevelop.atomicspacewar.tools.ColorGame;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 
 import static cat.olivadevelop.atomicspacewar.tools.Tools.SCREEN_MAIN_MENU;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.SCREEN_MULTIPLAYER;
 
 public class AtomicSpaceWarGame extends Game {
 
     private AssetManager assets;
 
     private HashMap<String, GenericScreen> listScreens;
-    private GenericScreen mainMenu;
 
     @Override
     public void create() {
@@ -57,8 +58,10 @@ public class AtomicSpaceWarGame extends Game {
     private void loadScreens() {
         if (listScreens == null) {
             listScreens = new HashMap<String, GenericScreen>();
-            mainMenu = new MainMenuScreen(this);
-            listScreens.put(SCREEN_MAIN_MENU, mainMenu);
+            GenericScreen mainMenuScreen = new MainMenuScreen(this);
+            GenericScreen multiplayerScreen = new MultiplayerScreen(this);
+            listScreens.put(SCREEN_MAIN_MENU, mainMenuScreen);
+            listScreens.put(SCREEN_MULTIPLAYER, multiplayerScreen);
         }
     }
 
@@ -68,6 +71,10 @@ public class AtomicSpaceWarGame extends Game {
 
     public TextureAtlas getUI() {
         return getAssets().get("textures/ui.atlas");
+    }
+
+    public TextureAtlas getUIShips() {
+        return getAssets().get("textures/ships.atlas");
     }
 
     public TextureAtlas getApp() {

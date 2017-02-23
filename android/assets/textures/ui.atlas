@@ -604,3 +604,10 @@ square_shadow
   orig: 19, 26
   offset: 0, 0
   index: -1
+blank
+  rotate: false
+  xy: 0, 0
+  size: 2, 2
+  orig: 1, 1
+  offset: 0, 0
+  index: -1

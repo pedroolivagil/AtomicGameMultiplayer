@@ -95,10 +95,6 @@ public class GenericScreen extends OverlapListener implements Screen {
     }
 
     public World getWorld() {
-        if (useWorld) {
-            return world;
-        } else {
-            return null;
-        }
+        return world;
     }
 }
