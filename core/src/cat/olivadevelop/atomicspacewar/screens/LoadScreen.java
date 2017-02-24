@@ -52,8 +52,8 @@ public class LoadScreen extends GenericScreen {
     }
 
     @Override
-    protected void actionsRender() {
-        super.actionsRender();
+    protected void actionsRender(float delta) {
+        super.actionsRender(delta);
         if (!cargaTerminada) {
             if (getGame().getAssets().update()) {
                 loadMainMenu();
@@ -65,7 +65,7 @@ public class LoadScreen extends GenericScreen {
 
     private void loadMainMenu() {
         cargaTerminada = true;
-        Gdx.app.log("CARGA", "TERMINADA");
+        Gdx.app.log("Load assets", "success");
         progressBar.setProgress(1);
         getGame().finishLoad();
     }

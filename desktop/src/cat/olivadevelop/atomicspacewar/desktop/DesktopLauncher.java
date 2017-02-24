@@ -13,10 +13,10 @@ public class DesktopLauncher {
         config.height = (int) Tools.resize(1280, 720, 800);
         config.width = 800;
         config.y = 50;
-        config.x = 1930;
+        config.x = -1850;
         config.addIcon("logo.png", Files.FileType.Internal);
         config.title = "OlivaDevelop Box Games - Atomic SpaceWar";
         config.useGL30 = false;
-        new LwjglApplication(new AtomicSpaceWarGame(), config);
+        new LwjglApplication(new AtomicSpaceWarGame(new Play(), new ToastDesktop(), new XboxDesktop()), config);
     }
 }

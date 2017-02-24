@@ -77,14 +77,14 @@ public class CustomButton extends Group implements Disableable {
     }
 
     @Override
-    public void setDisabled(boolean disabled) {
-        this.disableChanged = true;
-        this.disabled = disabled;
+    public boolean isDisabled() {
+        return disabled;
     }
 
     @Override
-    public boolean isDisabled() {
-        return disabled;
+    public void setDisabled(boolean disabled) {
+        this.disableChanged = true;
+        this.disabled = disabled;
     }
 
     @Override

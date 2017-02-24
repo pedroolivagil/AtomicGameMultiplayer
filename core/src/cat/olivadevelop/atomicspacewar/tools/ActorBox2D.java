@@ -28,15 +28,16 @@ public class ActorBox2D extends Actor {
     private int health;
     private int shield;
 
-    public ActorBox2D(TextureRegion texture, GenericScreen screen, World world, Vector2 position) {
+    public ActorBox2D(TextureRegion texture, GenericScreen screen, World world, float x, float y) {
         this.texture = texture;
         this.screen = screen;
+        this.world = world;
         setAlive(true);
         setHealth(0);
         setShield(0);
 
         BodyDef def = new BodyDef();
-        def.position.set(position);
+        def.position.set(new Vector2(x * METERS_IN_PIXELS, y * METERS_IN_PIXELS));
         def.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(def);
 
@@ -48,7 +49,7 @@ public class ActorBox2D extends Actor {
         fixture = body.createFixture(polygon, 1);
         polygon.dispose();
 
-        setSize(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
+        setSize(texture.getRegionWidth() / 1.25f, texture.getRegionHeight() / 1.25f);
     }
 
     @Override
@@ -98,5 +99,13 @@ public class ActorBox2D extends Actor {
 
     public void setShield(int shield) {
         this.shield = shield;
+    }
+
+    public Fixture getFixture() {
+        return fixture;
+    }
+
+    public Body getBody() {
+        return body;
     }
 }

@@ -40,6 +40,7 @@ public class MainMenuScreen extends GenericScreen {
         iTitle.setScale(.8f);
         iTitle.setRotation(20);
 
+        // Botón pantalla multijugador
         btnMultiplayer = new CustomButton(Tools.getString("btnMultiplayer"), game);
         btnMultiplayer.addListener(new Listener() {
             @Override
@@ -48,6 +49,7 @@ public class MainMenuScreen extends GenericScreen {
             }
         });
 
+        // Botón pantalla un jugador, desactivado por el momento
         btnSingleplayer = new CustomButton(Tools.getString("btnSingleplayer"), game);
         btnSingleplayer.addListener(new Listener() {
             @Override
@@ -57,6 +59,7 @@ public class MainMenuScreen extends GenericScreen {
         });
         btnSingleplayer.setDisabled(true);
 
+        // Botón de acceso a las preferéncias, desactivado de momento
         btnConfig = new CustomButton(Tools.getString("btnConfig"), game);
         btnConfig.addListener(new Listener() {
             @Override
@@ -80,7 +83,6 @@ public class MainMenuScreen extends GenericScreen {
         groupButtons.addActor(btnConfig);
         groupButtons.addActor(btnSingleplayer);
         groupButtons.addActor(btnMultiplayer);
-
     }
 
     @Override
@@ -89,6 +91,8 @@ public class MainMenuScreen extends GenericScreen {
         getStage().addActor(bg);
         getStage().addActor(iTitle);
         getStage().addActor(groupButtons);
+        // para el desarrollo
+        getGame().goToScreen(SCREEN_MULTIPLAYER);
     }
 
     @Override
