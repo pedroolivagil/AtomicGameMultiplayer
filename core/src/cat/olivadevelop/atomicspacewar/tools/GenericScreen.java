@@ -36,7 +36,7 @@ public class GenericScreen extends OverlapListener implements Screen {
         stage = new Stage(new FitViewport(Tools.getScreen_width(), Tools.getScreen_height()));
         Gdx.input.setInputProcessor(stage);
         if (useWorld) {
-            world = new World(new Vector2(0, -10), true);
+            world = new World(new Vector2(Tools.GRAVITY_X, Tools.GRAVITY_Y), true);
         }
     }
 
@@ -60,7 +60,7 @@ public class GenericScreen extends OverlapListener implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        getStage().getViewport().update(width, height, true);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class GenericScreen extends OverlapListener implements Screen {
         return game;
     }
 
-    protected Stage getStage() {
+    public Stage getStage() {
         return stage;
     }
 

@@ -7,11 +7,11 @@ import static cat.olivadevelop.atomicspacewar.tools.Tools.MARGIN_BETWEEN_BTNS;
 
 /**
  * Created by Oliva on 22/02/2017.
- *
+ * <p>
  * El orden de los botones es:
- *  - actor 0: abajo
- *  - actor 1: arriba
- *  - actor x: arriba
+ * - actor 0: abajo
+ * - actor 1: arriba
+ * - actor x: arriba
  */
 public class MenuGroup extends Group {
 

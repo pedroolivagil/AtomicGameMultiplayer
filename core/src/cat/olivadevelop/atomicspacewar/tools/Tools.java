@@ -24,10 +24,10 @@ public abstract class Tools {
     public static final String SCREEN_CONFIG = "config-screen";
     public static final String SCREEN_GAMEOVER_MULTIPLAYER = "game-over-multiplayer";
     public static final String SCREEN_GAMEOVER_SINGLEPLAYER = "game-over-singleplayer";
-
+    public static final float GRAVITY_X = 0f;
+    public static final float GRAVITY_Y = 0f;
     private static final float screen_width = 1280;
     private static final float screen_height = 720;
-
     private static I18NBundle bundle;
 
     private static I18NBundle getBundle() {

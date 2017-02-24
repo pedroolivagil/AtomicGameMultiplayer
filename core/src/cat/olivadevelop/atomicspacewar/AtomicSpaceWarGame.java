@@ -66,6 +66,7 @@ public class AtomicSpaceWarGame extends Game {
     }
 
     public void goToScreen(String nameScreen) {
+        Gdx.app.log("Navigate to", "" + nameScreen);
         setScreen(listScreens.get(nameScreen));
     }
 
