@@ -108,6 +108,14 @@ public class AtomicSpaceWarGame extends Game {
         return tiledMapRenderer;
     }
 
+    public ToastAction getToast() {
+        return toast;
+    }
+
+    public Xbox getBtnsPad() {
+        return btnsPad;
+    }
+
     public Skin getSkinL() {
         return getAssets().get("skin/L/uiskin.json");
     }

@@ -16,9 +16,10 @@ public class GenericPlayer extends ActorBox2D {
     public GenericPlayer(String texture, GenericScreen screen, World world, float x, float y) {
         super(screen.getGame().getUIShips().findRegion(texture), screen, world, x, y);
         damage = 1;
+        setOrigin(getWidth() / 2, getHeight() / 2);
     }
 
-    public void shoot(){
+    public void shoot() {
 
     }
 

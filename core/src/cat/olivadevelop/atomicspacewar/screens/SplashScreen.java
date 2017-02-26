@@ -40,11 +40,7 @@ public class SplashScreen extends GenericScreen {
         game.getAssets().load("sounds/shoot_plasma.mp3", Sound.class);
         game.getAssets().load("enviroment/enviroment_edgy.mp3", Music.class);
         game.getAssets().load("enviroment/enviroment_quiet.mp3", Music.class);
-
-        // dejamos para el final
-        /*TmxMapLoader loader = new TmxMapLoader(new InternalFileHandleResolver());
-        game.getAssets().setLoader(TiledMap.class, loader);
-        game.getAssets().load("map/space_map.tmx", TiledMap.class);*/
+        game.getBtnsPad().init();
 
         appAtlas = new TextureAtlas("textures/app.atlas");
 

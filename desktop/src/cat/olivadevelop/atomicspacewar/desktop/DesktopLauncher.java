@@ -12,8 +12,8 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.height = (int) Tools.resize(1280, 720, 800);
         config.width = 800;
-        config.y = 50;
-        config.x = -1850;
+        config.y = 250;
+        config.x = -1350;
         config.addIcon("logo.png", Files.FileType.Internal);
         config.title = "OlivaDevelop Box Games - Atomic SpaceWar";
         config.useGL30 = false;

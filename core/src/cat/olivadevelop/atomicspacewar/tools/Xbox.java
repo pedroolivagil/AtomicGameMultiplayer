@@ -73,7 +73,7 @@ public interface Xbox {
     int AXIS_RIGHT_TRIGGER = 4; //value 0 to -1f
     HashMap<String, Integer> keys = new HashMap<String, Integer>();
 
-    public void init();
+    void init();
 
-    public int getKeys(String key);
+    int getKeys(String key);
 }
