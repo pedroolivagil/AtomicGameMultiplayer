@@ -77,6 +77,10 @@ public class ActorBox2D extends Actor {
         remove();
     }
 
+    public GenericScreen getScreen() {
+        return screen;
+    }
+
     public boolean isAlive() {
         return alive;
     }

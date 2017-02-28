@@ -17,9 +17,12 @@ public class PlayerBasic extends GenericPlayer {
 
     public float dirX;
     public float dirY;
+    public float lastDirX;
+    public float lastDirY;
     private Vector2 direction;
     private float speedExtra;
     private boolean moving;
+    private boolean assigned;
 
     public PlayerBasic(GenericScreen screen, World world, float x, float y) {
         super("playerShip3_orange", screen, world, x, y);
@@ -28,6 +31,7 @@ public class PlayerBasic extends GenericPlayer {
         getFixture().setFriction(100);
         speedExtra = 0;
         moving = false;
+        assigned = false;
     }
 
     @Override
@@ -47,6 +51,15 @@ public class PlayerBasic extends GenericPlayer {
         }
         if (!(dirX == 0.0 && dirY == 0.0)) {
             moveAction(delta);
+            lastDirX = dirX;
+            lastDirY = dirY;
+            assigned = false;
+        } else {
+            if (!assigned) {
+                dirX = lastDirX;
+                dirY = lastDirY;
+                assigned = true;
+            }
         }
         //setPosition(getX() + dirX * (Tools.PLAYER_SPEED + speedExtra) * delta, getY() + dirY * (Tools.PLAYER_SPEED + speedExtra) * delta);
         getBody().setTransform(
@@ -54,6 +67,16 @@ public class PlayerBasic extends GenericPlayer {
                 (getY() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirY * (PLAYER_SPEED + speedExtra)),
                 getRotation()
         );
+
+        /*getScreen().getStage().getCamera().translate(
+                (getX() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirX * (PLAYER_SPEED + speedExtra)),
+                (getY() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirY * (PLAYER_SPEED + speedExtra)),
+                0
+        );*/
+        getScreen().getStage().getCamera().position.x = (getX() + (getWidth() / 2))
+                + (METERS_IN_PIXELS * dirX * (PLAYER_SPEED + speedExtra));
+        getScreen().getStage().getCamera().position.y = (getY() - (getHeight() * METERS_IN_PIXELS) / 2)
+                + (METERS_IN_PIXELS * dirY * (PLAYER_SPEED + speedExtra));
     }
 
     private void moveAction(float delta) {
