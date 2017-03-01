@@ -46,8 +46,8 @@ public class SplashScreen extends GenericScreen {
 
         logo = new CustomImage(appAtlas.findRegion("logo"));
         logo.setPosition(
-                Tools.getScreen_width() / 2 - logo.getWidth() / 2,
-                Tools.getScreen_height() / 2 - logo.getHeight() / 2
+                Tools.getScreenWidth() / 2 - logo.getWidth() / 2,
+                Tools.getScreenHeight() / 2 - logo.getHeight() / 2
         );
     }
 

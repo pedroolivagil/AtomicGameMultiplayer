@@ -3,6 +3,7 @@ package cat.olivadevelop.atomicspacewar.desktop;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.math.MathUtils;
 
 import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
 import cat.olivadevelop.atomicspacewar.tools.Tools;
@@ -12,8 +13,8 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.height = (int) Tools.resize(1280, 720, 800);
         config.width = 800;
-        config.y = 250;
-        config.x = -1350;
+        config.y = MathUtils.random(200, 400);
+        config.x = MathUtils.random(-1350, -1000);
         config.addIcon("logo.png", Files.FileType.Internal);
         config.title = "OlivaDevelop Box Games - Atomic SpaceWar";
         config.useGL30 = false;

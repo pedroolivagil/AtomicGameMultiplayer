@@ -44,7 +44,7 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
 
     @Override
     public void show() {
-        stage = new Stage(new FitViewport(Tools.getScreen_width(), Tools.getScreen_height()));
+        stage = new Stage(new FitViewport(Tools.getScreenWidth(), Tools.getScreenHeight()));
         if (useWorld) {
             world = new World(new Vector2(Tools.GRAVITY_X, Tools.GRAVITY_Y), true);
         }

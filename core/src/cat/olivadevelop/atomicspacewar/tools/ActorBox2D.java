@@ -109,7 +109,15 @@ public class ActorBox2D extends Actor {
         return fixture;
     }
 
+    public void setFixture(Fixture fixture) {
+        this.fixture = fixture;
+    }
+
     public Body getBody() {
         return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
     }
 }

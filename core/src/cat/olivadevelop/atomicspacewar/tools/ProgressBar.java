@@ -35,7 +35,7 @@ public class ProgressBar extends Group {
     private void init(TextureAtlas textureAtlas, Skin skin) {
         setWidth(400);
         setHeight(40);
-        setPosition((Tools.getScreen_width() / 2) - (getWidth() / 2), 20);
+        setPosition((Tools.getScreenWidth() / 2) - (getWidth() / 2), 20);
         bg_shadow = new CustomImage(new NinePatchDrawable(new NinePatch(textureAtlas.findRegion("square_shadow"), 8, 8, 8, 8)));
         bg_shadow.setWidth(getWidth());
         bg_shadow.setHeight(getHeight());

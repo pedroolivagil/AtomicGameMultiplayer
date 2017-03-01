@@ -32,8 +32,8 @@ public class MainMenuScreen extends GenericScreen {
         super(game);
         bg = new CustomImage(getGame().getApp().findRegion("background"));
         bg.setPosition(0, 0);
-        bg.setWidth(Tools.getScreen_width());
-        bg.setHeight(Tools.getScreen_height());
+        bg.setWidth(Tools.getScreenWidth());
+        bg.setHeight(Tools.getScreenHeight());
 
         iTitle = new CustomImage(getGame().getApp().findRegion("title"));
         iTitle.setPosition(70, -100);
@@ -78,7 +78,7 @@ public class MainMenuScreen extends GenericScreen {
         });
 
         groupButtons = new MenuGroup();
-        groupButtons.setPosition(Tools.getScreen_width() / 2 + 200, Tools.getScreen_height() / 4);
+        groupButtons.setPosition(Tools.getScreenWidth() / 2 + 200, Tools.getScreenHeight() / 4);
         groupButtons.addActor(btnExit);
         groupButtons.addActor(btnConfig);
         groupButtons.addActor(btnSingleplayer);

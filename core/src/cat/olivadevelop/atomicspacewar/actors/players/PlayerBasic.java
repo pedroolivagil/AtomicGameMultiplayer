@@ -1,7 +1,6 @@
 package cat.olivadevelop.atomicspacewar.actors.players;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
@@ -19,29 +18,26 @@ public class PlayerBasic extends GenericPlayer {
     public float dirY;
     public float lastDirX;
     public float lastDirY;
-    private Vector2 direction;
     private float speedExtra;
     private boolean moving;
     private boolean assigned;
 
     public PlayerBasic(GenericScreen screen, World world, float x, float y) {
         super("playerShip3_orange", screen, world, x, y);
-        this.direction = new Vector2(0, 0);
         getFixture().setUserData("player");
         getFixture().setFriction(100);
         speedExtra = 0;
         moving = false;
         assigned = false;
+        setPosition(x, y);
+        dirX = MathUtils.random(-1.5f, 1.5f);
+        dirY = MathUtils.random(-1.5f, 1.5f);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
         move(delta);
-    }
-
-    public Vector2 getDirection() {
-        return direction;
     }
 
     private void move(float delta) {
