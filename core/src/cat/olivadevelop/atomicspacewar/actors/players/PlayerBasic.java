@@ -2,9 +2,11 @@ package cat.olivadevelop.atomicspacewar.actors.players;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer;
 
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 
+import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.METERS_IN_PIXELS;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.PLAYER_SPEED;
 
@@ -24,20 +26,32 @@ public class PlayerBasic extends GenericPlayer {
 
     public PlayerBasic(GenericScreen screen, World world, float x, float y) {
         super("playerShip3_orange", screen, world, x, y);
-        getFixture().setUserData("player");
-        getFixture().setFriction(100);
         speedExtra = 0;
         moving = false;
         assigned = false;
         setPosition(x, y);
         dirX = MathUtils.random(-1.5f, 1.5f);
         dirY = MathUtils.random(-1.5f, 1.5f);
+        setName(FIXTURE_PLAYER);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        move(delta);
+        if (isAlive()) {
+            move(delta);
+        }
+    }
+
+    @Override
+    public void death() {
+        setAlive(false);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                born();
+            }
+        }, 2f);
     }
 
     private void move(float delta) {
@@ -57,18 +71,12 @@ public class PlayerBasic extends GenericPlayer {
                 assigned = true;
             }
         }
-        //setPosition(getX() + dirX * (Tools.PLAYER_SPEED + speedExtra) * delta, getY() + dirY * (Tools.PLAYER_SPEED + speedExtra) * delta);
         getBody().setTransform(
                 (getX() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirX * (PLAYER_SPEED + speedExtra)),
                 (getY() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirY * (PLAYER_SPEED + speedExtra)),
                 getRotation()
         );
 
-        /*getScreen().getStage().getCamera().translate(
-                (getX() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirX * (PLAYER_SPEED + speedExtra)),
-                (getY() * METERS_IN_PIXELS) + (METERS_IN_PIXELS * dirY * (PLAYER_SPEED + speedExtra)),
-                0
-        );*/
         getScreen().getStage().getCamera().position.x = (getX() + (getWidth() / 2))
                 + (METERS_IN_PIXELS * dirX * (PLAYER_SPEED + speedExtra));
         getScreen().getStage().getCamera().position.y = (getY() - (getHeight() * METERS_IN_PIXELS) / 2)

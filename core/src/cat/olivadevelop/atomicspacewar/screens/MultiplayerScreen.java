@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Fixture;
 
 import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
 import cat.olivadevelop.atomicspacewar.actors.enviroment.Bound;
@@ -13,6 +14,8 @@ import cat.olivadevelop.atomicspacewar.tools.Tools;
 
 import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_LARGE;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_SMALL;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_BOUND;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_H;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_W;
 
@@ -34,16 +37,14 @@ public class MultiplayerScreen extends GenericScreen {
     public void show() {
         super.show();
         getWorld().setContactListener(this);
+        player = new PlayerBasic(this, getWorld(), 1200, 1200);
+        getStage().addActor(player);
         bounds = new Bound[]{
                 new Bound(this, getWorld(), BOUND_LARGE, BOUND_LARGE, BOUND_SMALL, TILED_MAP_H - (BOUND_LARGE * 2)),                    // LEFT
                 new Bound(this, getWorld(), TILED_MAP_W - BOUND_LARGE, BOUND_LARGE, BOUND_SMALL, TILED_MAP_H - (BOUND_LARGE * 2)),      // RIGHT
                 new Bound(this, getWorld(), BOUND_LARGE, TILED_MAP_H - BOUND_LARGE, TILED_MAP_W - (BOUND_LARGE * 2), BOUND_SMALL),      // TOP
                 new Bound(this, getWorld(), BOUND_LARGE, BOUND_LARGE, TILED_MAP_W - (BOUND_LARGE * 2), BOUND_SMALL)                     // BOTTOM
         };
-        shape = new ShapeRenderer();
-
-        player = new PlayerBasic(this, getWorld(), 1000, 1000);
-        getStage().addActor(player);
         for (Bound b : bounds) {
             getStage().addActor(b);
         }
@@ -98,15 +99,11 @@ public class MultiplayerScreen extends GenericScreen {
 
     @Override
     public void beginContact(Contact contact) {
-        super.beginContact(contact);
-        Gdx.app.log("FIX A USR DATA BGN", "" + contact.getFixtureA().getUserData().toString());
-        Gdx.app.log("FIX B USR DATA BGN", "" + contact.getFixtureB().getUserData().toString());
-    }
-
-    @Override
-    public void endContact(Contact contact) {
-        super.endContact(contact);
-        Gdx.app.log("FIX A USR DATA END", "" + contact.getFixtureA().getUserData().toString());
-        Gdx.app.log("FIX B USR DATA END", "" + contact.getFixtureB().getUserData().toString());
+        Fixture a = contact.getFixtureA(), b = contact.getFixtureB();
+        if ((a.getUserData().equals(FIXTURE_BOUND) && b.getUserData().equals(FIXTURE_PLAYER))
+                || (b.getUserData().equals(FIXTURE_BOUND) && a.getUserData().equals(FIXTURE_PLAYER))) {
+            Gdx.app.log("Actor muerto","true");
+            player.death();
+        }
     }
 }

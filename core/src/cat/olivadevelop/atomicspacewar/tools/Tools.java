@@ -27,6 +27,10 @@ public abstract class Tools {
     public static final String SCREEN_GAMEOVER_MULTIPLAYER = "game-over-multiplayer";
     public static final String SCREEN_GAMEOVER_SINGLEPLAYER = "game-over-singleplayer";
 
+    public static final String FIXTURE_BOUND = "bound";
+    public static final String FIXTURE_PLAYER = "player";
+    public static final String FIXTURE_ENVIROMENT = "enviroment";
+
     public static final float GRAVITY_X = 0f;
     public static final float GRAVITY_Y = 0f;
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_ENVIROMENT;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.METERS_IN_PIXELS;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.PIXELS_IN_METERS;
 
@@ -50,6 +51,7 @@ public class ActorBox2D extends Actor {
         polygon.dispose();
 
         setSize(texture.getRegionWidth() / 1.25f, texture.getRegionHeight() / 1.25f);
+        setName(FIXTURE_ENVIROMENT);
     }
 
     @Override
@@ -69,6 +71,15 @@ public class ActorBox2D extends Actor {
         setPosition(body.getPosition().x * PIXELS_IN_METERS, body.getPosition().y * PIXELS_IN_METERS);
         batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(),
                 getHeight(), getScaleX(), getScaleY(), getRotation());
+    }
+
+    public void born() {
+        setAlive(true);
+        setPosition(1200, 1200);
+    }
+
+    public void death() {
+
     }
 
     public void detach() {
