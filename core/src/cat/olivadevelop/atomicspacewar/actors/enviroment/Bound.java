@@ -23,25 +23,27 @@ public class Bound extends ActorBox2D {
     PolygonShape polygon;
 
     public Bound(GenericScreen screen, World world, float x, float y, float w, float h) {
-        //super(screen.getGame().getUI().findRegion("square_shadow"), screen, world, x, y);
-        super(screen.getGame().getUI().findRegion("metalPanel"), screen, world, x, y);
+        super(screen.getGame().getUI().findRegion("square_shadow"), screen, world, x, y);
 
         BodyDef def = new BodyDef();
         def.position.set(new Vector2(x * METERS_IN_PIXELS, y * METERS_IN_PIXELS));
         def.type = BodyDef.BodyType.StaticBody;
         setBody(world.createBody(def));
 
-        polygon = new PolygonShape();
-        polygon.setAsBox(
-                (w / 2) * METERS_IN_PIXELS,
-                (h / 2) * METERS_IN_PIXELS
-        );
-        setFixture(getBody().createFixture(polygon, 2000000000));
-        //polygon.dispose();
         shape = new ShapeRenderer();
+        drawDebug(shape);
 
         setWidth(w);
         setHeight(h);
+
+        polygon = new PolygonShape();
+        polygon.setAsBox(
+                (w * METERS_IN_PIXELS),
+                (h * METERS_IN_PIXELS)
+        );
+        setFixture(getBody().createFixture(polygon, 1));
+        //polygon.dispose();
+
         setName(FIXTURE_BOUND);
     }
 
@@ -50,8 +52,8 @@ public class Bound extends ActorBox2D {
         super.act(delta);
         shape.setProjectionMatrix(getScreen().getStage().getCamera().combined);
         shape.begin(ShapeRenderer.ShapeType.Line);
-        shape.setColor(ColorGame.RED);
-        shape.rect(getX(), getY(), getWidth() * METERS_IN_PIXELS, getHeight() * METERS_IN_PIXELS);
+        shape.setColor(ColorGame.YELLOW);
+        shape.rect(getX(), getY(), getWidth(), getHeight());
         shape.end();
     }
 }

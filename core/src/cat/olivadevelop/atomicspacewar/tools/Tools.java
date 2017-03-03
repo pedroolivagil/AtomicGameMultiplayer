@@ -41,7 +41,7 @@ public abstract class Tools {
     public static final int TILED_MAP_H = 12800;
     public static final int TILED_MAP_W = 12800;
     public static final int BOUND_LARGE = 1000;
-    public static final int BOUND_SMALL = 10;
+    public static final int BOUND_SMALL = 100;
 
     private static I18NBundle bundle;
 

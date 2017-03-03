@@ -36,7 +36,6 @@ public class MultiplayerScreen extends GenericScreen {
     @Override
     public void show() {
         super.show();
-        getWorld().setContactListener(this);
         player = new PlayerBasic(this, getWorld(), 1200, 1200);
         getStage().addActor(player);
         bounds = new Bound[]{

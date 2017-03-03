@@ -47,20 +47,22 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
         stage = new Stage(new FitViewport(Tools.getScreenWidth(), Tools.getScreenHeight()));
         if (useWorld) {
             world = new World(new Vector2(Tools.GRAVITY_X, Tools.GRAVITY_Y), true);
-        }
-        Controllers.addListener(this);
-        Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchBackKey(true);
-        checkGamePad();
-        stage.addListener(new Listener() {
-            @Override
-            public void action(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
-                    actionBackButton();
+            world.setContactListener(this);
+        } else {
+            Gdx.input.setInputProcessor(this);
+            Gdx.input.setCatchBackKey(true);
+            stage.addListener(new Listener() {
+                @Override
+                public void action(InputEvent event, int keycode) {
+                    if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
+                        actionBackButton();
+                    }
+                    actionOtherButton(event, keycode);
                 }
-                actionOtherButton(event, keycode);
-            }
-        });
+            });
+            Controllers.addListener(this);
+        }
+        checkGamePad();
         initGamePad = false;
     }
 
