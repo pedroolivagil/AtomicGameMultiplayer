@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "cat.olivadevelop.atomicspacewar"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 25
     }
 }
