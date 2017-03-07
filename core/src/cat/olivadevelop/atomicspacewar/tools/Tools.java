@@ -91,4 +91,8 @@ public abstract class Tools {
     public static void logger(GenericScreen screen, String msg) {
         Gdx.app.log(screen.getClass().getSimpleName(), msg);
     }
+
+    public static void logger(GenericScreen screen, String label, Object msg) {
+        Tools.logger(screen, label + " --> " + msg.toString());
+    }
 }

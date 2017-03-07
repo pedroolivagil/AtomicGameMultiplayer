@@ -1,6 +1,5 @@
 package cat.olivadevelop.atomicspacewar.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -14,8 +13,6 @@ import cat.olivadevelop.atomicspacewar.tools.Tools;
 
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_BOUND;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_H;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_W;
 
 /**
  * Created by Oliva on 23/02/2017.
@@ -31,6 +28,7 @@ public class MultiplayerScreen extends GenericScreen {
     private Bound[] bounds;
     private ShapeRenderer shape;
     private int contadorMuertes;
+    private boolean playerMuerto;
 
     public MultiplayerScreen(AtomicSpaceWarGame game) {
         super(game, true);
@@ -62,12 +60,20 @@ public class MultiplayerScreen extends GenericScreen {
     @Override
     protected void actionsRender(float delta) {
         super.actionsRender(delta);
-        getGame().getMapBackground().setView(getStage().getCamera().combined, 0, 0, TILED_MAP_W, TILED_MAP_H);
-        getGame().getMapBackground().render();
+        /*getGame().getMapBackground().setView(getStage().getCamera().combined, 0, 0, TILED_MAP_W, TILED_MAP_H);
+        getGame().getMapBackground().render();*/
         checkGamePad();
 
         getStage().getCamera().position.x = player.getX() + (player.getWidth() / 2);
         getStage().getCamera().position.y = player.getY();
+        if (playerMuerto) {
+            if (player.isAlive()) {
+                player.death();
+                contadorMuertes++;
+                Tools.logger(this, "Actor muerto", contadorMuertes);
+                playerMuerto = false;
+            }
+        }
     }
 
     @Override
@@ -119,11 +125,7 @@ public class MultiplayerScreen extends GenericScreen {
         Fixture a = contact.getFixtureA(), b = contact.getFixtureB();
         if ((a.getUserData().equals(FIXTURE_BOUND) && b.getUserData().equals(FIXTURE_PLAYER))
                 || (b.getUserData().equals(FIXTURE_BOUND) && a.getUserData().equals(FIXTURE_PLAYER))) {
-            if (player.isAlive()) {
-                //player.death();
-                contadorMuertes++;
-                Gdx.app.log("Actor muerto", "" + contadorMuertes);
-            }
+            playerMuerto = true;
         }
     }
 }

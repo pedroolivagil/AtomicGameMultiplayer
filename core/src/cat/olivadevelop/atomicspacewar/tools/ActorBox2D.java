@@ -91,7 +91,9 @@ public class ActorBox2D extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        setPosition(convertPixelsInMeters(body.getPosition().x), convertPixelsInMeters(body.getPosition().y));
+        if(isAlive()) {
+            setPosition(convertPixelsInMeters(body.getPosition().x), convertPixelsInMeters(body.getPosition().y));
+        }
         batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 

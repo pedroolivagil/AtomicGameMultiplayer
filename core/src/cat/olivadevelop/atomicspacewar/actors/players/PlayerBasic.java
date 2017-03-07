@@ -8,6 +8,7 @@ import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.PLAYER_SPEED;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.convertMetersInPixels;
 
 /**
  * Created by Oliva on 23/02/2017.
@@ -32,6 +33,15 @@ public class PlayerBasic extends GenericPlayer {
     }
 
     @Override
+    public void born() {
+        super.born();
+        setPosition(
+                convertMetersInPixels(MathUtils.random(2, 3)),
+                convertMetersInPixels(MathUtils.random(2, 3))
+        );
+    }
+
+    @Override
     public void act(float delta) {
         super.act(delta);
         if (isAlive()) {
@@ -41,6 +51,7 @@ public class PlayerBasic extends GenericPlayer {
 
     @Override
     public void death() {
+        super.death();
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
