@@ -87,4 +87,8 @@ public abstract class Tools {
     public static float convertPixelsInMeters(float pixels) {
         return pixels * METERS_IN_PIXELS;
     }
+
+    public static void logger(GenericScreen screen, String msg) {
+        Gdx.app.log(screen.getClass().getSimpleName(), msg);
+    }
 }
