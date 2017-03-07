@@ -2,7 +2,7 @@ package cat.olivadevelop.atomicspacewar.tools;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -11,8 +11,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_ENVIROMENT;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.METERS_IN_PIXELS;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.PIXELS_IN_METERS;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.convertMetersInPixels;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.convertPixelsInMeters;
 
 /**
  * Created by Oliva on 19/02/2017.
@@ -20,6 +20,8 @@ import static cat.olivadevelop.atomicspacewar.tools.Tools.PIXELS_IN_METERS;
 
 public class ActorBox2D extends Actor {
 
+    private ShapeRenderer shape;
+    private PolygonShape polygon;
     private TextureRegion texture;
     private GenericScreen screen;
     private World world;
@@ -29,6 +31,13 @@ public class ActorBox2D extends Actor {
     private int health;
     private int shield;
 
+    /**
+     * @param texture
+     * @param screen
+     * @param world
+     * @param x       in meters
+     * @param y       in meters
+     */
     public ActorBox2D(TextureRegion texture, GenericScreen screen, World world, float x, float y) {
         this.texture = texture;
         this.screen = screen;
@@ -38,20 +47,24 @@ public class ActorBox2D extends Actor {
         setShield(0);
 
         BodyDef def = new BodyDef();
-        def.position.set(new Vector2(x * METERS_IN_PIXELS, y * METERS_IN_PIXELS));
+        //def.position.set(new Vector2(convertMetersInPixels(x), convertMetersInPixels(y)));
         def.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(def);
 
-        PolygonShape polygon = new PolygonShape();
+        polygon = new PolygonShape();
         polygon.setAsBox(
-                (texture.getRegionWidth() / 2) * METERS_IN_PIXELS,
-                (texture.getRegionHeight() / 2) * METERS_IN_PIXELS
+                convertPixelsInMeters(texture.getRegionWidth() / 2),
+                convertPixelsInMeters(texture.getRegionHeight() / 2)
         );
         fixture = body.createFixture(polygon, 1);
         polygon.dispose();
 
-        setSize(texture.getRegionWidth() / 1.25f, texture.getRegionHeight() / 1.25f);
+        setSize(texture.getRegionWidth(), texture.getRegionHeight());
         setName(FIXTURE_ENVIROMENT);
+        shape = new ShapeRenderer();
+        drawDebug(shape);
+
+        setPosition(convertMetersInPixels(x), convertMetersInPixels(y));
     }
 
     @Override
@@ -66,26 +79,41 @@ public class ActorBox2D extends Actor {
     }
 
     @Override
+    public Actor debug() {
+        shape.setProjectionMatrix(getScreen().getStage().getCamera().combined);
+        shape.begin(ShapeRenderer.ShapeType.Line);
+        shape.setColor(ColorGame.YELLOW);
+        shape.rect(getX(), getY(), texture.getRegionWidth(), texture.getRegionHeight());
+        shape.end();
+        return super.debug();
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        setPosition(body.getPosition().x * PIXELS_IN_METERS, body.getPosition().y * PIXELS_IN_METERS);
-        batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(),
-                getHeight(), getScaleX(), getScaleY(), getRotation());
+        setPosition(convertPixelsInMeters(body.getPosition().x), convertPixelsInMeters(body.getPosition().y));
+        batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 
     public void born() {
         setAlive(true);
-        setPosition(1200, 1200);
     }
 
     public void death() {
-
+        setAlive(false);
     }
 
-    public void detach() {
+    @Override
+    public boolean remove() {
         body.destroyFixture(fixture);
         world.destroyBody(body);
-        remove();
+        return super.remove();
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        body.setTransform(x + (getWidth() / 2), y + (getHeight() / 2), 0);
     }
 
     public GenericScreen getScreen() {

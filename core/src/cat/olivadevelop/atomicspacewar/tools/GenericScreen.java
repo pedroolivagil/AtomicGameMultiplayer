@@ -11,7 +11,13 @@ import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -23,7 +29,7 @@ import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
  * Created by Oliva on 17/02/2017.
  */
 
-public class GenericScreen extends OverlapListener implements Screen, ControllerListener, InputProcessor {
+public class GenericScreen implements Screen, ControllerListener, InputProcessor, ContactListener {
 
     private AtomicSpaceWarGame game;
     private World world;
@@ -31,15 +37,19 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
     private boolean useWorld;
     private Controller pad = null;
     private boolean initGamePad;
+    private boolean debugAllStage;
+    private Box2DDebugRenderer renderer;
 
     public GenericScreen(AtomicSpaceWarGame game) {
         this.game = game;
         this.useWorld = false;
+        this.debugAllStage = false;
     }
 
     public GenericScreen(AtomicSpaceWarGame game, boolean useWorld) {
         this.game = game;
         this.useWorld = useWorld;
+        debugAllStage = false;
     }
 
     @Override
@@ -48,6 +58,7 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
         if (useWorld) {
             world = new World(new Vector2(Tools.GRAVITY_X, Tools.GRAVITY_Y), true);
             world.setContactListener(this);
+            renderer = new Box2DDebugRenderer();
         } else {
             Gdx.input.setInputProcessor(this);
             Gdx.input.setCatchBackKey(true);
@@ -60,10 +71,11 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
                     actionOtherButton(event, keycode);
                 }
             });
-            Controllers.addListener(this);
         }
+        Controllers.addListener(this);
         checkGamePad();
         initGamePad = false;
+
     }
 
     @Override
@@ -71,13 +83,25 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
         Gdx.gl.glClearColor(.1f, .1f, .1f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        actionsRender(delta);
-
-        stage.act();
         if (useWorld) {
             world.step(1 / 60f, 6, 2);
+            stage.act();
+            renderer.render(world, getStage().getCamera().combined);
         }
-        stage.draw();
+        actionsRender(delta);
+
+        if (debugAllStage) {
+            for (Actor a : getStage().getActors()) {
+                a.debug();
+            }
+        }
+
+        if (useWorld) {
+            stage.draw();
+        } else {
+            stage.act();
+            stage.draw();
+        }
     }
 
     protected void actionsRender(float delta) {
@@ -109,6 +133,7 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
         stage.dispose();
         if (useWorld) {
             world.dispose();
+            renderer.dispose();
         }
     }
 
@@ -124,6 +149,9 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
         return world;
     }
 
+    public void setDebugAllStage(boolean debugAllStage) {
+        this.debugAllStage = debugAllStage;
+    }
 
     public void actionBackButton() {
 
@@ -223,7 +251,7 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
 
     public void setPad(Controller c) {
         pad = c;
-        pad.addListener(this);
+        //pad.addListener(this);
     }
 
     protected void checkGamePad() {
@@ -247,5 +275,25 @@ public class GenericScreen extends OverlapListener implements Screen, Controller
                 }
             }
         }
+    }
+
+    @Override
+    public void beginContact(Contact contact) {
+
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
     }
 }
