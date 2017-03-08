@@ -11,8 +11,9 @@ import java.util.Locale;
 
 public abstract class Tools {
     // Conversores
-    private static final float PIXELS_IN_METERS = 80f; // 720/9; 9 = 16:9
+    private static final float PIXELS_IN_METERS = 80f;      // 720/9; 9 = 16:9
     private static final float METERS_IN_PIXELS = 1f;
+    private static final float REAL_METERS_IN_PIXELS = .111f;
 
     public static final int WIDTH_BUTTON = 280;
     public static final int HEIGHT_BUTTON = 100;
@@ -74,7 +75,7 @@ public abstract class Tools {
 
     /**
      * @param meters
-     * @return pixels x meter
+     * @return pixels
      */
     public static float convertMetersInPixels(float meters) {
         return meters * PIXELS_IN_METERS;
@@ -82,10 +83,17 @@ public abstract class Tools {
 
     /**
      * @param pixels
-     * @return meters x pixel
+     * @return meters
      */
     public static float convertPixelsInMeters(float pixels) {
         return pixels * METERS_IN_PIXELS;
+    }
+    /**
+     * @param pixels
+     * @return meters
+     */
+    public static float realConvertPixelsInMeters(float pixels) {
+        return pixels * REAL_METERS_IN_PIXELS;
     }
 
     public static void logger(GenericScreen screen, String msg) {

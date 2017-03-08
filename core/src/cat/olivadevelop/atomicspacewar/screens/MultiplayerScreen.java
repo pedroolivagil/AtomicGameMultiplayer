@@ -11,8 +11,11 @@ import cat.olivadevelop.atomicspacewar.actors.players.PlayerBasic;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 import cat.olivadevelop.atomicspacewar.tools.Tools;
 
+import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_LARGE;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_BOUND;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.convertMetersInPixels;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.realConvertPixelsInMeters;
 
 /**
  * Created by Oliva on 23/02/2017.
@@ -51,6 +54,9 @@ public class MultiplayerScreen extends GenericScreen {
                 new Bound(this, getWorld(), 1.1f, 6, 5, .1f),       // TOP
                 new Bound(this, getWorld(), 1, 1, 5, .1f)         // BOTTOM
         };
+        Tools.logger(this, "BOUND_LARGE METERS", realConvertPixelsInMeters(BOUND_LARGE));
+        Tools.logger(this, "BOUND_LARGE PIXELS BY METER", convertMetersInPixels(realConvertPixelsInMeters(BOUND_LARGE)));
+        Tools.logger(this, "BOUND_LARGE REAL PIXELS", BOUND_LARGE);
         getStage().addActor(player);
         for (Bound b : bounds) {
             getStage().addActor(b);
