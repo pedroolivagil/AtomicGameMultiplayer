@@ -1,7 +1,6 @@
 package cat.olivadevelop.atomicspacewar.screens;
 
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
@@ -31,13 +30,12 @@ public class MultiplayerScreen extends GenericScreen {
 
     private PlayerBasic player;
     private Bound[] bounds;
-    private ShapeRenderer shape;
     private int contadorMuertes;
     private boolean playerMuerto;
 
     public MultiplayerScreen(AtomicSpaceWarGame game) {
         super(game, true);
-        //setDebugAllStage(true);
+        setDebugAllStage(true);
     }
 
     @Override
@@ -50,13 +48,6 @@ public class MultiplayerScreen extends GenericScreen {
                 new Bound(this, getWorld(), pixToMet(BOUND_LARGE) + pixToMet(BOUND_SMALL), pixToMet(TILED_MAP_H - BOUND_LARGE), pixToMet(TILED_MAP_W - (BOUND_LARGE * 2)), pixToMet(BOUND_SMALL)),      // TOP
                 new Bound(this, getWorld(), pixToMet(BOUND_LARGE), pixToMet(BOUND_LARGE), pixToMet(TILED_MAP_W - (BOUND_LARGE * 2)), pixToMet(BOUND_SMALL))                     // BOTTOM
         };
-        /*bounds = new Bound[]{
-                new Bound(this, getWorld(), 1, 1.1f, .1f, 5),         // LEFT
-                new Bound(this, getWorld(), 6, 1, .1f, 5),        // RIGHT
-                new Bound(this, getWorld(), 1.1f, 6, 5, .1f),       // TOP
-                new Bound(this, getWorld(), 1, 1, 5, .1f)         // BOTTOM
-        };*/
-
         getStage().addActor(player);
         for (Bound b : bounds) {
             getStage().addActor(b);
