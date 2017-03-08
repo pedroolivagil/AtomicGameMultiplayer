@@ -12,10 +12,12 @@ import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 import cat.olivadevelop.atomicspacewar.tools.Tools;
 
 import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_LARGE;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_SMALL;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_BOUND;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.convertMetersInPixels;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.realConvertPixelsInMeters;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_H;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_W;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.pixToMet;
 
 /**
  * Created by Oliva on 23/02/2017.
@@ -35,39 +37,38 @@ public class MultiplayerScreen extends GenericScreen {
 
     public MultiplayerScreen(AtomicSpaceWarGame game) {
         super(game, true);
-        setDebugAllStage(true);
+        //setDebugAllStage(true);
     }
 
     @Override
     public void show() {
         super.show();
         player = new PlayerBasic(this, getWorld());
-        /*bounds = new Bound[]{
-                new Bound(this, getWorld(), BOUND_LARGE, BOUND_LARGE, BOUND_SMALL, TILED_MAP_H - (BOUND_LARGE * 2)),                    // LEFT
-                new Bound(this, getWorld(), TILED_MAP_W - BOUND_LARGE, BOUND_LARGE, BOUND_SMALL, TILED_MAP_H - (BOUND_LARGE * 2)),      // RIGHT
-                new Bound(this, getWorld(), BOUND_LARGE, TILED_MAP_H - BOUND_LARGE, TILED_MAP_W - (BOUND_LARGE * 2), BOUND_SMALL),      // TOP
-                new Bound(this, getWorld(), BOUND_LARGE, BOUND_LARGE, TILED_MAP_W - (BOUND_LARGE * 2), BOUND_SMALL)                     // BOTTOM
-        };*/
         bounds = new Bound[]{
+                new Bound(this, getWorld(), pixToMet(BOUND_LARGE), pixToMet(BOUND_LARGE) + pixToMet(BOUND_SMALL), pixToMet(BOUND_SMALL), pixToMet(TILED_MAP_H - (BOUND_LARGE * 2))),                    // LEFT
+                new Bound(this, getWorld(), pixToMet(TILED_MAP_W - BOUND_LARGE), pixToMet(BOUND_LARGE), pixToMet(BOUND_SMALL), pixToMet(TILED_MAP_H - (BOUND_LARGE * 2))),      // RIGHT
+                new Bound(this, getWorld(), pixToMet(BOUND_LARGE) + pixToMet(BOUND_SMALL), pixToMet(TILED_MAP_H - BOUND_LARGE), pixToMet(TILED_MAP_W - (BOUND_LARGE * 2)), pixToMet(BOUND_SMALL)),      // TOP
+                new Bound(this, getWorld(), pixToMet(BOUND_LARGE), pixToMet(BOUND_LARGE), pixToMet(TILED_MAP_W - (BOUND_LARGE * 2)), pixToMet(BOUND_SMALL))                     // BOTTOM
+        };
+        /*bounds = new Bound[]{
                 new Bound(this, getWorld(), 1, 1.1f, .1f, 5),         // LEFT
                 new Bound(this, getWorld(), 6, 1, .1f, 5),        // RIGHT
                 new Bound(this, getWorld(), 1.1f, 6, 5, .1f),       // TOP
                 new Bound(this, getWorld(), 1, 1, 5, .1f)         // BOTTOM
-        };
-        Tools.logger(this, "BOUND_LARGE METERS", realConvertPixelsInMeters(BOUND_LARGE));
-        Tools.logger(this, "BOUND_LARGE PIXELS BY METER", convertMetersInPixels(realConvertPixelsInMeters(BOUND_LARGE)));
-        Tools.logger(this, "BOUND_LARGE REAL PIXELS", BOUND_LARGE);
+        };*/
+
         getStage().addActor(player);
         for (Bound b : bounds) {
             getStage().addActor(b);
         }
+        player.born();
     }
 
     @Override
     protected void actionsRender(float delta) {
         super.actionsRender(delta);
-        /*getGame().getMapBackground().setView(getStage().getCamera().combined, 0, 0, TILED_MAP_W, TILED_MAP_H);
-        getGame().getMapBackground().render();*/
+        getGame().getMapBackground().setView(getStage().getCamera().combined, 0, 0, TILED_MAP_W, TILED_MAP_H);
+        getGame().getMapBackground().render();
         checkGamePad();
 
         getStage().getCamera().position.x = player.getX() + (player.getWidth() / 2);

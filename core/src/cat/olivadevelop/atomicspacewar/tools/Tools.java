@@ -13,7 +13,7 @@ public abstract class Tools {
     // Conversores
     private static final float PIXELS_IN_METERS = 80f;      // 720/9; 9 = 16:9
     private static final float METERS_IN_PIXELS = 1f;
-    private static final float REAL_METERS_IN_PIXELS = .111f;
+    private static final float REAL_METERS_IN_PIXELS = .0125f;
 
     public static final int WIDTH_BUTTON = 280;
     public static final int HEIGHT_BUTTON = 100;
@@ -42,7 +42,7 @@ public abstract class Tools {
     public static final int TILED_MAP_H = 12800;
     public static final int TILED_MAP_W = 12800;
     public static final int BOUND_LARGE = 1000;
-    public static final int BOUND_SMALL = 100;
+    public static final int BOUND_SMALL = 10;
 
     private static I18NBundle bundle;
 
@@ -92,7 +92,7 @@ public abstract class Tools {
      * @param pixels
      * @return meters
      */
-    public static float realConvertPixelsInMeters(float pixels) {
+    public static float pixToMet(float pixels) {
         return pixels * REAL_METERS_IN_PIXELS;
     }
 

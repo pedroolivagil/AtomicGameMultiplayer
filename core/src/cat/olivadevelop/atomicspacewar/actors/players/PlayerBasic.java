@@ -6,9 +6,9 @@ import com.badlogic.gdx.utils.Timer;
 
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 
+import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_LARGE;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.PLAYER_SPEED;
-import static cat.olivadevelop.atomicspacewar.tools.Tools.convertMetersInPixels;
 
 /**
  * Created by Oliva on 23/02/2017.
@@ -36,9 +36,11 @@ public class PlayerBasic extends GenericPlayer {
     public void born() {
         super.born();
         setPosition(
-                convertMetersInPixels(MathUtils.random(2, 3)),
-                convertMetersInPixels(MathUtils.random(2, 3))
+                MathUtils.random(BOUND_LARGE + 200, BOUND_LARGE + 500),
+                MathUtils.random(BOUND_LARGE + 200, BOUND_LARGE + 500)
         );
+        dirX = MathUtils.random(-1.5f, 1.5f);
+        dirY = MathUtils.random(-1.5f, 1.5f);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class PlayerBasic extends GenericPlayer {
             public void run() {
                 born();
             }
-        }, 2f);
+        }, 1f);
     }
 
     private void move(float delta) {
