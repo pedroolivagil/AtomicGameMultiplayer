@@ -30,12 +30,12 @@ public class MainMenuScreen extends GenericScreen {
 
     public MainMenuScreen(final AtomicSpaceWarGame game) {
         super(game);
-        bg = new CustomImage(getGame().getApp().findRegion("background"));
+        bg = new CustomImage(getGame().getApp("background"));
         bg.setPosition(0, 0);
         bg.setWidth(Tools.getScreenWidth());
         bg.setHeight(Tools.getScreenHeight());
 
-        iTitle = new CustomImage(getGame().getApp().findRegion("title"));
+        iTitle = new CustomImage(getGame().getApp("title"));
         iTitle.setPosition(70, -100);
         iTitle.setScale(.8f);
         iTitle.setRotation(20);

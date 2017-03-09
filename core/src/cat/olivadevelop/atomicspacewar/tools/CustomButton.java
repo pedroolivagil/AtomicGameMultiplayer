@@ -31,8 +31,8 @@ public class CustomButton extends Group implements Disableable {
     public CustomButton(String text, AtomicSpaceWarGame game) {
         this.game = game;
         label = new CustomLabel(text, game.getSkinL());
-        blockUI = new CustomImage(game.getUI().findRegion("blank"));
-        bg = new CustomImage(new NinePatch(game.getUI().findRegion("glassPanel"), 14, 14, 14, 14)); //glassPanel_corners
+        blockUI = new CustomImage(game.getUI("blank"));
+        bg = new CustomImage(new NinePatch(game.getUI("glassPanel"), 14, 14, 14, 14)); //glassPanel_corners
         label.setTextSize(1);
         setScale(.7f);
         setWidth(WIDTH_BUTTON * (1 + getScale()));

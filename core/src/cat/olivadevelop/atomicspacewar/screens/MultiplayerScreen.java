@@ -10,6 +10,9 @@ import cat.olivadevelop.atomicspacewar.actors.players.PlayerBasic;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 import cat.olivadevelop.atomicspacewar.tools.Tools;
 
+import static cat.olivadevelop.atomicspacewar.tools.BotonesXbox.AXIS_LEFT_X;
+import static cat.olivadevelop.atomicspacewar.tools.BotonesXbox.AXIS_LEFT_Y;
+import static cat.olivadevelop.atomicspacewar.tools.BotonesXbox.BUTTON_RB;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_LARGE;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.BOUND_SMALL;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_BOUND;
@@ -35,7 +38,7 @@ public class MultiplayerScreen extends GenericScreen {
 
     public MultiplayerScreen(AtomicSpaceWarGame game) {
         super(game, true);
-        setDebugAllStage(true);
+        //setDebugAllStage(true);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class MultiplayerScreen extends GenericScreen {
     @Override
     public boolean buttonDown(Controller controller, int buttonCode) {
         if (player.isAlive()) {
-            if (buttonCode == getGame().getBtnsPad().getKeys("BUTTON_RB")) {
+            if (buttonCode == getGame().getBtnsPad().getKeys(BUTTON_RB.code())) {
                 player.setSpeedExtra(Tools.PLAYER_SUPER_SPEED);
             }
         }
@@ -93,7 +96,7 @@ public class MultiplayerScreen extends GenericScreen {
     @Override
     public boolean buttonUp(Controller controller, int buttonCode) {
         if (player.isAlive()) {
-            if (buttonCode == getGame().getBtnsPad().getKeys("BUTTON_RB")) {
+            if (buttonCode == getGame().getBtnsPad().getKeys(BUTTON_RB.code())) {
                 player.setSpeedExtra(0);
             }
         }
@@ -103,9 +106,9 @@ public class MultiplayerScreen extends GenericScreen {
     @Override
     public boolean axisMoved(Controller controller, int axisCode, float value) {
         if (player.isAlive()) {
-            if (axisCode == getGame().getBtnsPad().getKeys("AXIS_LEFT_X")) {
+            if (axisCode == getGame().getBtnsPad().getKeys(AXIS_LEFT_X.code())) {
                 player.dirX = value;
-            } else if (axisCode == getGame().getBtnsPad().getKeys("AXIS_LEFT_Y")) {
+            } else if (axisCode == getGame().getBtnsPad().getKeys(AXIS_LEFT_Y.code())) {
                 player.dirY = -value;
             }
         }

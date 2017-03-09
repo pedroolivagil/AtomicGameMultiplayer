@@ -1,6 +1,7 @@
 package cat.olivadevelop.atomicspacewar.tools;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.I18NBundle;
 
 import java.util.Locale;
@@ -88,6 +89,7 @@ public abstract class Tools {
     public static float convertPixelsInMeters(float pixels) {
         return pixels * METERS_IN_PIXELS;
     }
+
     /**
      * @param pixels
      * @return meters
@@ -102,5 +104,16 @@ public abstract class Tools {
 
     public static void logger(GenericScreen screen, String label, Object msg) {
         Tools.logger(screen, label + " --> " + msg.toString());
+    }
+
+    public static TextureRegion[] getSprites(int cols, int rows, TextureRegion[][] tmp) {
+        TextureRegion[] Frames = new TextureRegion[cols * rows];
+        int index = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Frames[index++] = tmp[i][j];
+            }
+        }
+        return Frames;
     }
 }

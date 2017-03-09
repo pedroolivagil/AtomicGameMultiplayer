@@ -21,6 +21,7 @@ public class PlayerBasic extends GenericPlayer {
     public float lastDirY;
     private float speedExtra;
     private boolean assigned;
+    private FirePlayer fire;
 
     public PlayerBasic(GenericScreen screen, World world) {
         super("playerShip3_orange", screen, world, MathUtils.random(2, 3), MathUtils.random(2, 3));
@@ -29,6 +30,8 @@ public class PlayerBasic extends GenericPlayer {
         dirX = MathUtils.random(-1.5f, 1.5f);
         dirY = MathUtils.random(-1.5f, 1.5f);
         setName(FIXTURE_PLAYER);
+        fire = new FirePlayer(screen);
+        screen.getStage().addActor(fire);
     }
 
     @Override
@@ -40,6 +43,8 @@ public class PlayerBasic extends GenericPlayer {
         );
         dirX = MathUtils.random(-1.5f, 1.5f);
         dirY = MathUtils.random(-1.5f, 1.5f);
+        fire.setPosition(getX(), getY() - fire.getHeight());
+        fire.setOrigin(fire.getWidth() / 2 - getWidth() / 2, getHeight() / 2);
     }
 
     @Override
@@ -83,6 +88,8 @@ public class PlayerBasic extends GenericPlayer {
                 (getY() + (dirY * (PLAYER_SPEED + speedExtra))),
                 getRotation() * MathUtils.degreesToRadians
         );
+        fire.setPosition(getX() + getWidth() / 2, getY() - fire.getHeight());
+        fire.setRotation(getRotation());
     }
 
     private void moveAction(float delta) {
@@ -98,9 +105,5 @@ public class PlayerBasic extends GenericPlayer {
 
     public void setSpeedExtra(float speedExtra) {
         this.speedExtra = speedExtra;
-    }
-
-    public float getSpeedExtra() {
-        return speedExtra;
     }
 }

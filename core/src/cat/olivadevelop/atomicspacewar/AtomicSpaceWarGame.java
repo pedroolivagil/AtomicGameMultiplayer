@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -95,12 +96,16 @@ public class AtomicSpaceWarGame extends Game {
         return getAssets().get("textures/ui.atlas");
     }
 
-    public TextureAtlas getUIShips() {
-        return getAssets().get("textures/ships.atlas");
+    public TextureRegion getUI(String region) {
+        return ((TextureAtlas) getAssets().get("textures/ui.atlas")).findRegion(region);
     }
 
-    public TextureAtlas getApp() {
-        return getAssets().get("textures/app.atlas");
+    public TextureRegion getUIShips(String region) {
+        return ((TextureAtlas) getAssets().get("textures/ships.atlas")).findRegion(region);
+    }
+
+    public TextureRegion getApp(String region) {
+        return ((TextureAtlas) getAssets().get("textures/app.atlas")).findRegion(region);
     }
 
     public OrthogonalTiledMapRenderer getMapBackground() {

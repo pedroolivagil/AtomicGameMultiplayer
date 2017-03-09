@@ -31,7 +31,7 @@ public class Bound extends Actor {
     private TextureRegion texture;
 
     public Bound(GenericScreen screen, World world, float x, float y, float w, float h) {
-        texture = screen.getGame().getUI().findRegion("square_shadow");
+        texture = screen.getGame().getUI("square_shadow");
         this.screen = screen;
         this.world = world;
 

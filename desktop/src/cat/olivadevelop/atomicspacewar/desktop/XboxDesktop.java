@@ -9,6 +9,7 @@ public class XboxDesktop implements Xbox {
 
     @Override
     public void init() {
+        keys.clear();
         keys.put("BUTTON_X", 2);
         keys.put("BUTTON_Y", 3);
         keys.put("BUTTON_A", 0);
