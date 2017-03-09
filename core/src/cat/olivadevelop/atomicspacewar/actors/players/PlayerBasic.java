@@ -106,4 +106,8 @@ public class PlayerBasic extends GenericPlayer {
     public void setSpeedExtra(float speedExtra) {
         this.speedExtra = speedExtra;
     }
+
+    public FirePlayer getFire() {
+        return fire;
+    }
 }

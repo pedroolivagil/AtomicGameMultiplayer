@@ -3,6 +3,7 @@ package cat.olivadevelop.atomicspacewar.screens;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
 import cat.olivadevelop.atomicspacewar.actors.enviroment.Bound;
@@ -88,6 +89,12 @@ public class MultiplayerScreen extends GenericScreen {
         if (player.isAlive()) {
             if (buttonCode == getGame().getBtnsPad().getKeys(BUTTON_RB.code())) {
                 player.setSpeedExtra(Tools.PLAYER_SUPER_SPEED);
+                player.getFire().addAction(
+                        Actions.sequence(
+                                Actions.scaleTo(1.3f, 1.3f, .3f),
+                                Actions.scaleTo(1, 1, .1f)
+                        )
+                );
             }
         }
         return super.buttonDown(controller, buttonCode);
