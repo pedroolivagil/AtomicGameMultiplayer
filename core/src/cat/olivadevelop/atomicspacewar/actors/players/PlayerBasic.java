@@ -31,6 +31,7 @@ public class PlayerBasic extends GenericPlayer {
         dirY = MathUtils.random(-1.5f, 1.5f);
         setName(FIXTURE_PLAYER);
         fire = new FirePlayer(screen);
+        fire.setOrigin(fire.getWidth() / 2, getHeight() / 2 + fire.getHeight());
         screen.getStage().addActor(fire);
     }
 
@@ -44,7 +45,6 @@ public class PlayerBasic extends GenericPlayer {
         dirX = MathUtils.random(-1.5f, 1.5f);
         dirY = MathUtils.random(-1.5f, 1.5f);
         fire.setPosition(getX(), getY() - fire.getHeight());
-        fire.setOrigin(fire.getWidth() / 2 - getWidth() / 2, getHeight() / 2);
     }
 
     @Override
