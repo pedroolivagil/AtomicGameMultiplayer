@@ -2,6 +2,7 @@ package cat.olivadevelop.atomicspacewar.actors.players;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer;
 
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 
@@ -58,12 +59,12 @@ public class PlayerBasic extends GenericPlayer {
     @Override
     public void death() {
         super.death();
-        /*Timer.schedule(new Timer.Task() {
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 born();
             }
-        }, 1f);*/
+        }, 1f);
     }
 
     private void move(float delta) {

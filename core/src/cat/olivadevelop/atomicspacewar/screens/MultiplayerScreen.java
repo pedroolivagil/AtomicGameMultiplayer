@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import cat.olivadevelop.atomicspacewar.AtomicSpaceWarGame;
+import cat.olivadevelop.atomicspacewar.actors.HUD;
 import cat.olivadevelop.atomicspacewar.actors.enviroment.Bound;
 import cat.olivadevelop.atomicspacewar.actors.players.PlayerBasic;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
@@ -20,6 +21,8 @@ import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_BOUND;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.FIXTURE_PLAYER;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_H;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.TILED_MAP_W;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.getScreenHeight;
+import static cat.olivadevelop.atomicspacewar.tools.Tools.getScreenWidth;
 import static cat.olivadevelop.atomicspacewar.tools.Tools.pixToMet;
 
 /**
@@ -36,6 +39,7 @@ public class MultiplayerScreen extends GenericScreen {
     private Bound[] bounds;
     private int contadorMuertes;
     private boolean playerMuerto;
+    private HUD hud;
 
     public MultiplayerScreen(AtomicSpaceWarGame game) {
         super(game, true);
@@ -45,6 +49,7 @@ public class MultiplayerScreen extends GenericScreen {
     @Override
     public void show() {
         super.show();
+        hud = new HUD(this);
         player = new PlayerBasic(this, getWorld());
         bounds = new Bound[]{
                 new Bound(this, getWorld(), pixToMet(BOUND_LARGE), pixToMet(BOUND_LARGE) + pixToMet(BOUND_SMALL), pixToMet(BOUND_SMALL), pixToMet(TILED_MAP_H - (BOUND_LARGE * 2))),                    // LEFT
@@ -53,6 +58,7 @@ public class MultiplayerScreen extends GenericScreen {
                 new Bound(this, getWorld(), pixToMet(BOUND_LARGE), pixToMet(BOUND_LARGE), pixToMet(TILED_MAP_W - (BOUND_LARGE * 2)), pixToMet(BOUND_SMALL))                     // BOTTOM
         };
         getStage().addActor(player);
+        getStage().addActor(hud);
         for (Bound b : bounds) {
             getStage().addActor(b);
         }
@@ -64,7 +70,7 @@ public class MultiplayerScreen extends GenericScreen {
         super.actionsRender(delta);
         getGame().getMapBackground().setView(getStage().getCamera().combined, 0, 0, TILED_MAP_W, TILED_MAP_H);
         getGame().getMapBackground().render();
-        checkGamePad();
+        checkGamPad();
 
         getStage().getCamera().position.x = player.getX() + (player.getWidth() / 2);
         getStage().getCamera().position.y = player.getY();
@@ -76,12 +82,27 @@ public class MultiplayerScreen extends GenericScreen {
                 playerMuerto = false;
             }
         }
+        hud.setPosition(
+                getStage().getCamera().position.x - (getScreenWidth() / 2),
+                getStage().getCamera().position.y - (getScreenHeight() / 2)
+        );
+
+        if (!isGamePadActive()) {
+            hud.addTouchpad();
+            if (hud.getTouchpad().isTouched()) {
+                player.dirX = hud.getTouchpad().getKnobPercentX();
+                player.dirY = hud.getTouchpad().getKnobPercentY();
+            }
+        } else {
+            hud.removeTouchpad();
+        }
     }
 
     @Override
     public void connected(Controller controller) {
         super.connected(controller);
-        checkGamePad();
+        setInitGamePad(false);
+        checkGamPad();
     }
 
     @Override
@@ -91,7 +112,7 @@ public class MultiplayerScreen extends GenericScreen {
                 player.setSpeedExtra(Tools.PLAYER_SUPER_SPEED);
                 player.getFire().addAction(
                         Actions.sequence(
-                                Actions.scaleTo(1.3f, 1.3f, .3f),
+                                Actions.scaleTo(1.2f, 1.2f, .2f),
                                 Actions.scaleTo(1, 1, .1f)
                         )
                 );

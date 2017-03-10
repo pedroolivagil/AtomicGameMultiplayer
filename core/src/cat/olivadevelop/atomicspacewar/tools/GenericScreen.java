@@ -59,21 +59,20 @@ public class GenericScreen implements Screen, ControllerListener, InputProcessor
             world = new World(new Vector2(Tools.GRAVITY_X, Tools.GRAVITY_Y), true);
             world.setContactListener(this);
             renderer = new Box2DDebugRenderer();
-        } else {
-            Gdx.input.setInputProcessor(this);
-            Gdx.input.setCatchBackKey(true);
-            stage.addListener(new Listener() {
-                @Override
-                public void action(InputEvent event, int keycode) {
-                    if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
-                        actionBackButton();
-                    }
-                    actionOtherButton(event, keycode);
-                }
-            });
         }
+        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
+        stage.addListener(new Listener() {
+            @Override
+            public void action(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
+                    actionBackButton();
+                }
+                actionOtherButton(event, keycode);
+            }
+        });
         Controllers.addListener(this);
-        checkGamePad();
+        checkGamPad();
         initGamePad = false;
 
     }
@@ -105,7 +104,7 @@ public class GenericScreen implements Screen, ControllerListener, InputProcessor
     }
 
     protected void actionsRender(float delta) {
-        checkGamePad();
+        checkGamPad();
     }
 
     @Override
@@ -251,10 +250,9 @@ public class GenericScreen implements Screen, ControllerListener, InputProcessor
 
     public void setPad(Controller c) {
         pad = c;
-        //pad.addListener(this);
     }
 
-    protected void checkGamePad() {
+    protected void checkGamPad() {
         if (pad != null) return;
         if (!initGamePad) {
             initGamePad = true;
@@ -277,6 +275,10 @@ public class GenericScreen implements Screen, ControllerListener, InputProcessor
         }
     }
 
+    protected boolean isGamePadActive() {
+        return Controllers.getControllers().size != 0;
+    }
+
     @Override
     public void beginContact(Contact contact) {
 
@@ -295,5 +297,9 @@ public class GenericScreen implements Screen, ControllerListener, InputProcessor
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public void setInitGamePad(boolean initGamePad) {
+        this.initGamePad = initGamePad;
     }
 }
