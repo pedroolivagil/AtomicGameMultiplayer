@@ -87,7 +87,8 @@ public class MultiplayerScreen extends GenericScreen {
                 getStage().getCamera().position.y - (getScreenHeight() / 2)
         );
 
-        if (!isGamePadActive()) {
+        // quitar la negación
+        if (isGamePadActive()) {
             hud.addTouchpad();
             if (hud.getTouchpad().isTouched()) {
                 player.dirX = hud.getTouchpad().getKnobPercentX();

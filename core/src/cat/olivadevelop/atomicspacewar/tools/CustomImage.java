@@ -14,6 +14,10 @@ import com.badlogic.gdx.utils.Scaling;
 
 public class CustomImage extends Image {
 
+    public CustomImage(GenericScreen screen, String texture) {
+        super(screen.getGame().getUI(texture));
+    }
+
     public CustomImage(NinePatch patch) {
         super(patch);
     }
