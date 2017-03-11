@@ -40,8 +40,8 @@ public abstract class Tools {
     public static final float PLAYER_SUPER_SPEED = 3f;
     public static final float PLAYER_HIPER_SPEED = 8f;
 
-    public static final int TILED_MAP_H = 12800;
-    public static final int TILED_MAP_W = 12800;
+    public static final int TILED_MAP_H = 6400;
+    public static final int TILED_MAP_W = 6400;
     public static final int BOUND_LARGE = 1000;
     public static final int BOUND_SMALL = 10;
 

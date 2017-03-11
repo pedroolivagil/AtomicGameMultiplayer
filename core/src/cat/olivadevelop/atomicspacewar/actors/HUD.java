@@ -33,6 +33,7 @@ public class HUD extends Group {
         setHeight(Tools.getScreenHeight());
 
         touchpad = new CustomTouchPad(screen);
+
         // Health group
         healthGroup = new Group();
         CustomImage bgHealth = new CustomImage(new NinePatch(screen.getGame().getUI("glassPanel_cornerTR"), 14, 14, 14, 14));
