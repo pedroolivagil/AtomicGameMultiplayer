@@ -9,6 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class CustomLabel extends Label {
 
+    public CustomLabel(GenericScreen screen, CharSequence text) {
+        super(text, screen.getGame().getSkinL());
+        setTextSize(.7f);
+    }
+
     public CustomLabel(CharSequence text, Skin skin) {
         super(text, skin);
         setTextSize(.7f);
