@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 
 import cat.olivadevelop.atomicspacewar.tools.CustomImage;
 import cat.olivadevelop.atomicspacewar.tools.CustomLabel;
+import cat.olivadevelop.atomicspacewar.tools.CustomPad;
 import cat.olivadevelop.atomicspacewar.tools.CustomTouchPad;
 import cat.olivadevelop.atomicspacewar.tools.GenericScreen;
 import cat.olivadevelop.atomicspacewar.tools.Tools;
@@ -17,6 +18,7 @@ import cat.olivadevelop.atomicspacewar.tools.Tools;
 public class HUD extends Group {
 
     private CustomTouchPad touchpad;
+    private CustomPad customPad;
     private GenericScreen screen;
     private Group healthGroup;
     private Group shieldGroup;
@@ -33,6 +35,7 @@ public class HUD extends Group {
         setHeight(Tools.getScreenHeight());
 
         touchpad = new CustomTouchPad(screen);
+        customPad = new CustomPad(screen);
 
         // Health group
         healthGroup = new Group();
@@ -86,11 +89,13 @@ public class HUD extends Group {
         // usamos false en el contains para comparar con equals()
         if (!getChildren().contains(touchpad, false)) {
             addActor(touchpad);
+            addActor(customPad);
         }
     }
 
     public void removeTouchpad() {
         removeActor(touchpad);
+        removeActor(customPad);
     }
 
     public Touchpad getTouchpad() {

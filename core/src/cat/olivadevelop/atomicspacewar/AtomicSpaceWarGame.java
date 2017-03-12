@@ -107,6 +107,9 @@ public class AtomicSpaceWarGame extends Game {
     public TextureRegion getApp(String region) {
         return ((TextureAtlas) getAssets().get("textures/app.atlas")).findRegion(region);
     }
+    public TextureRegion getControlImg(String region) {
+        return ((TextureAtlas) getAssets().get("textures/controllers.atlas")).findRegion(region);
+    }
 
     public OrthogonalTiledMapRenderer getMapBackground() {
         //return new OrthogonalTiledMapRenderer(getAssets().get("map/space_map.tmx", TiledMap.class));

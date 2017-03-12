@@ -17,16 +17,16 @@ public class CustomTouchPad extends Group {
 
     public CustomTouchPad(GenericScreen screen) {
         TouchpadStyle tStyle = new TouchpadStyle();
-        Drawable bg = new TextureRegionDrawable(new TextureRegion(screen.getGame().getUI("dot_shadow")));
-        Drawable knob = new TextureRegionDrawable(new TextureRegion(screen.getGame().getUI("dotWhite")));
-        bg.setMinHeight(100);
-        bg.setMinWidth(100);
-        knob.setMinHeight(45);
-        knob.setMinWidth(45);
+        Drawable bg = new TextureRegionDrawable(new TextureRegion(screen.getGame().getControlImg("transparentDark09")));
+        Drawable knob = new TextureRegionDrawable(new TextureRegion(screen.getGame().getControlImg("transparentDark49")));
+        bg.setMinHeight(140);
+        bg.setMinWidth(140);
+        knob.setMinHeight(80);
+        knob.setMinWidth(80);
         tStyle.background = bg;
         tStyle.knob = knob;
-        touchpad = new Touchpad(5, tStyle);
-        touchpad.setBounds(20, 80, 110, 110);
+        touchpad = new Touchpad(10, tStyle);
+        touchpad.setBounds(20, 80, 150, 150);
         addActor(touchpad);
     }
 

@@ -32,6 +32,7 @@ public class SplashScreen extends GenericScreen {
         game.getAssets().load("textures/app.atlas", TextureAtlas.class);
         game.getAssets().load("textures/ships.atlas", TextureAtlas.class);
         game.getAssets().load("textures/ui.atlas", TextureAtlas.class);
+        game.getAssets().load("textures/controllers.atlas", TextureAtlas.class);
         game.getAssets().load("sounds/explosion_spaceship.mp3", Sound.class);
         game.getAssets().load("sounds/level_up.mp3", Sound.class);
         game.getAssets().load("sounds/power_up.mp3", Sound.class);
